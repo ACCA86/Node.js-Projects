@@ -1,0 +1,60 @@
+link#bootstrap-css(href='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css' rel='stylesheet')
+link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.0/css/all.min.css" integrity="sha512-AyOHI/tIMgoG+32apAs3OdqFowPSDqiz5vLcD2wdhBJ4J/xF1PI6UITcyhS5HCmsiioapRaONqYBvimxzFfnoA==" crossorigin="anonymous" referrerpolicy="no-referrer" )
+link(rel='stylesheet' href='/static/style.css')
+script(src='//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js')
+script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js')
+// ---- Include the above in your HEAD tag --------
+.container.bg-dark
+  .row.justify-content-center
+    .col-md-8
+      .card.bg-secondary
+        .card-header.text-center.font-weight-bold.display-4 Register
+        .card-body
+          form.form-horizontal(method='post' action='/route/register')
+            .form-group
+              i.fa.fa-user.fa-sm.icons(aria-hidden='true')
+              | !{' '}
+              label.cols-sm-2.control-label(for='fullname') Your Full Name
+              .cols-sm-10
+                .input-group
+                  span.input-group-addon
+                  input#name.form-control(required type='text' value='' name='fullname' placeholder='Enter your Name')
+            .form-group
+              i.fa.fa-envelope.fa.icons(aria-hidden='true')
+              | !{' '}
+              label.cols-sm-2.control-label(for='email') Your Email
+              .cols-sm-10
+                .input-group
+                  span.input-group-addon
+                  input#email.form-control(required type='email' value='' name='email' placeholder='Enter your Email')
+            .form-group
+              i.fa.fa-users.fa.icons(aria-hidden='true')
+              | !{' '}
+              label.cols-sm-2.control-label(for='username') Username
+              .cols-sm-10
+                .input-group
+                  span.input-group-addon
+                  input#username.form-control(required type='text' value='' name='username' placeholder='Enter your Username')
+            .form-group
+              i.fa.fa-lock.fa-lg.icons(aria-hidden='true')
+              | !{' '}
+              label.cols-sm-2.control-label(for='password') Password
+              
+              .cols-sm-10
+                .input-group
+                  span.input-group-addon
+                  input#password.form-control(required type='password' value='' name='password' placeholder='Enter your Password')
+            .form-group
+              i.fa.fa-lock.fa-lg.icons(aria-hidden='true')
+              | !{' '}
+              label.cols-sm-2.control-label(for='confirm') Confirm Password
+              
+              .cols-sm-10
+                .input-group
+                  span.input-group-addon
+                  input#confirm.form-control(required type='password' value='' name='confirm' placeholder='Confirm your Password')
+            p(class="font-weight-bold cols-sm-2" id="pass-alert") #{pass_alert}
+            .form-group
+              input(type='submit',class="btn btn-success btn-block rounded-pill",value='Register')
+            .login-register
+              a(href='/route/login',class="login_link") Login

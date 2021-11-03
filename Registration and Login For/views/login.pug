@@ -1,0 +1,26 @@
+include includes/head.pug
+    div.text-center
+      h2(class="font-weight-bold").h1.card-header Login Form
+      br
+      if userCase 
+        p.alert.alert-success.d-inline #{logout}
+         //- | #{logout}
+    div.container.w-25.bg-secondary.mb-4
+     div.card-body
+       div.text-center
+        <i class="fas fa-user" id="user"></i>
+       form(method="post",action='/route/login')
+         div.form-group
+         label(for='username') username
+         input( required class="form-control" type='text',name='username',value='',placeholder='enter username')
+         div.form-group
+         label(for='password') password
+         input( required class="form-control" type='password',name='password',value='',placeholder='enter password')
+         div.form-group
+         label(for='email') email
+         input( required class="form-control" type='email',name='email',value='',placeholder='enter email')
+         div.form-group
+         input(type='submit',class="btn btn-outline-success rounded-pill",value='Submit')
+    footer(class="text-center card-footer text-muted row")
+     <div class="col-md-12 copyright-text">
+       <p class="text-center">&copy; Copyright 2021 - Company Name. All rights reserved.  
