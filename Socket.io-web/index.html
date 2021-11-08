@@ -1,1 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Chat App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css" integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog==" crossorigin="anonymous" />
+    <style>
+      body { margin: 0; padding-bottom: 3rem; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background:rgba(0,0,0,.4);}
 
+      #form { background: rgba(0, 0, 0, 0.15); padding: 0.25rem; position: fixed; bottom: 0; left: 0; right: 0; display: flex; height: 3rem; box-sizing: border-box; backdrop-filter: blur(10px); }
+      #input { border: none; padding: 0 1rem; flex-grow: 1; border-radius: 2rem; margin: 0.25rem; direction: rtl;}
+      #input:focus { outline: none; }
+      #form > button {cursor:pointer; background:#498164db; border: none; padding: 0 1rem; margin: 0.25rem; border-radius: 3px; outline: none; color: #fff; }
+
+      #messages { list-style-type: none; margin: 0; padding: 0; }
+      #messages > li { padding: 0.5rem 1rem; border-radius:5px; margin:5px auto;
+        -webkit-box-shadow: 0px 10px 13px -7px #000000, 5px 5px 9px -6px rgba(0,0,0,0); 
+      box-shadow: 0px 10px 13px -7px #000000, 5px 5px 9px -6px rgba(0,0,0,0);
+}
+      #messages > li:nth-child(odd) { background: #ece4b6;}
+      #messages > li:nth-child(even) {background:rgba(204, 245, 239, 0.938);}
+      #form > i {font-size:30px;color:#333;}
+      #file-icon{margin:auto;position:absolute;transform:translate(10px,10px);cursor:pointer;}
+    </style>
+  </head>
+  <body>
+    <ul id="messages"></ul>
+    <form id="form" action="">
+      <label id="file-icon" for="File"><i class="fas fa-link"></i></label>
+      <input type="file" id="File" style="display:none;visibility:none;"/>
+      <input id="input" autocomplete="off" />
+      <button>Send</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+<script>
+  var socket = io();
+  var form = document.getElementById('form');
+  var input = document.getElementById('input');
+  var name = prompt('Enter Your Name')
+
+  socket.emit('new-user',name)
+  if (name != null) {
+    form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    setTimeout(()=>{
+    document.body.onload = name
+  },1000)
+      if(input.value != null){
+        const inputValue = input.value
+      socket.emit('chat message', inputValue)
+      appendMessage(`You:${inputValue}`)
+      input.value = '';
+      }
+  });
+  socket.on('chat message', data=>{
+    appendMessage(`${data.name}:${data.msg}`)
+  });
+  }
+
+  function appendMessage(message) {
+    var item = document.createElement('li');
+    item.textContent = message;
+    messages.appendChild(item);
+    window.scrollTo(0, document.body.scrollHeight);
+  }
+  
+</script>
+  </body>
+</html>
